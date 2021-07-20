@@ -9,7 +9,7 @@
 ### Find out why no sound is beeing played [X]
 ### Style []
 ### Get options working []
-### About section []
+### About/Menu section working []
 ### Get history section working 2/2 (persist) []
 
 

@@ -1,17 +1,34 @@
 <template>
     <div id="body" :class="{ cycle: cycleType.isCycle, break: cycleType.isBreak, longBreak: cycleType.isLongBreak }">
-        <img src="./assets/tomato.png" alt="A tomato" />
+        <header>
+            <Menu />
+            <img src="./assets/pomodoro.png" alt="A tomato" />
+            <TimerOptions />
+        </header>
+
         <Timer v-model:cycleType="cycleType" />
+
+        <footer>
+            <div>
+                <a href="https://www.linkedin.com/in/jean-rufino-40b95113b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/JeanRufino?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+            <span>&copy; 2021 - Jean Rufino</span>
+        </footer>
     </div>
 </template>
 
 <script>
 import Timer from "./components/Timer.vue";
+import TimerOptions from "./components/TimerOptions.vue";
+import Menu from "./components/Menu.vue";
 
 export default {
     name: "App",
     components: {
         Timer,
+        TimerOptions,
+        Menu,
     },
     data() {
         return {
@@ -19,7 +36,12 @@ export default {
                 isCycle: true,
                 isBreak: false,
                 isLongBreak: false,
-            }
+            },
+            // periodDurations: {
+            //     cycleDuration,
+            //     breakDuration,
+            //     longBreakDuration,
+            // }
         };
     }
 };
@@ -28,11 +50,11 @@ export default {
 <style>
 :root {
     --white: #f0f0f0;
-    --text-black: #2c3e50;
-    --red: #fa7a52;
-    --dark-red: #fa4d31;
-    --blue: #76BBFF;
-    --green: #94E084;
+    --text-black: #1d2833;
+    --red: #ff2d2d;
+    --blue: #347fca;
+    --dark-blue: #1e4e7e;
+    --green: #3cb842;
 }
 *,
 *::after,
@@ -43,13 +65,17 @@ export default {
     position: relative;
 }
 #body {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    display: flex;
+    position: relative;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    flex-direction: column;
     min-height: 100vh;
-    padding: 30px 0;
+    color: var(--white);
+    font-weight: 500;
 }
 #body.cycle {
     background-color: var(--red);
@@ -58,11 +84,35 @@ export default {
     background-color: var(--blue);
 }
 #body.longBreak {
-    background-color: var(--green);
+    background-color: var(--dark-blue);
+}
+/* ---- HEADER AND MENUS ---- */
+header {
+    position: initial;
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    width: 100%;
+    background-color: transparent;
+    padding: 30px 0 50px 0;
 }
 img {
-    max-width: 60px;
-    max-height: auto;
-    padding-bottom: 30px;
+    max-height: 60px;
+    max-width: auto;
+    margin: 0 auto;
+}
+footer {
+    justify-self: flex-end;
+    margin-top: auto;
+    padding: 50px 0 30px 0;
+}
+footer > div {
+    margin-bottom: 16px;
+}
+footer a {
+    font-size: 20px;
+    color:var(--white)
+}
+footer a:not(:last-of-type) {
+    margin-right: 20px;
 }
 </style>

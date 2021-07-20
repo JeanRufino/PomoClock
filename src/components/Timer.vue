@@ -4,17 +4,19 @@
             {{timeOutput}}
         </div>
     </div>
-    <div class="buttons">
-        <button @click="click">
-            {{buttonText}}
-        </button>
-    </div>
     <div class="cycleInfo">
         <div class="set">
-            Série: <br> {{set}}
+            Série <br> <span>{{set}}</span>/12
+        </div>
+        <div class="button">
+            <button @click="click">
+                <span class="material-icons-outlined">
+                    {{buttonText}}
+                </span>
+            </button>
         </div>
         <div class="cycle">
-            Ciclo: <br> {{cycle}}/4
+            Ciclo <br> <span>{{cycle}}</span>/4
         </div>
     </div>
 </template>
@@ -32,9 +34,9 @@ export default {
     },
     emits: ['update:cycleType'],
     data() {
-        const cycleDuration = 25;
-        const breakDuration = 5;
-        const longBreakDuration = 30;
+        const cycleDuration = 0.1;
+        const breakDuration = 0.05;
+        const longBreakDuration = 0.1;
 
         return {
             cycleDuration,
@@ -47,13 +49,13 @@ export default {
             interval: null,
             cycle: 1,
             set: 1,
-            buttonText: 'Iniciar',
+            buttonText: 'play_circle',
             audio: new Audio(bells),
         };
     },
     methods: {
         click() {
-            if(this.buttonText === 'Pausar') {
+            if(this.buttonText === 'pause_circle') {
                 this.buttonSwap();
                 return clearInterval(this.interval);
             }
@@ -77,21 +79,19 @@ export default {
                 if(this.cycle < 4) {
                     this.cycle += 1;
                     this.isBreak = true;
-                    this.isLongBreak = false;
                     this.$emit('update:cycleType', { 
                         isCycle: this.isCycle,
                         isBreak: this.isBreak,
-                        isLongBreak: this.isLongBreak,
+                        // isLongBreak: this.isLongBreak,
                     });
                     this.timeInSeconds = this.breakDuration * 60;
                 } else if(this.cycle == 4) {
                     this.cycle = 1;
                     this.set += 1;
-                    this.isBreak = false;
                     this.isLongBreak = true;
                     this.$emit('update:cycleType', { 
                         isCycle: this.isCycle,
-                        isBreak: this.isBreak,
+                        // isBreak: this.isBreak,
                         isLongBreak: this.isLongBreak,
                     });
                     this.timeInSeconds = this.longBreakDuration * 60;
@@ -111,10 +111,10 @@ export default {
             }
         },
         buttonSwap() {
-            if(this.buttonText === 'Iniciar' || this.buttonText === 'Continuar') {
-                this.buttonText = 'Pausar';
+            if(this.buttonText === 'play_circle') {
+                this.buttonText = 'pause_circle';
             } else {
-                this.buttonText = 'Continuar';
+                this.buttonText = 'play_circle';
             }
         },
         playBells() {
@@ -139,45 +139,45 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50vh;
-    width: 50vh;
+    height: 50vw;
+    width: 50vw;
+    max-height: 320px;
+    max-width: 320px;
     margin: 0 auto;
-    border: 4px solid var(--text-black);
+    border: 6px solid var(--white);
     border-radius: 50%;
+    /* color: var(--text-black); */
 }
 .timer .timer-value {
     font-size: 50px;
 }
+.cycleInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: var(--text-black); */
+    margin-top: 30px;
+    width: 100%;
+}
 button {
-    margin-top: 50px;
-    padding: 6px 24px;
-    border: 4px solid var(--text-black);
-    color: var(--text-wshite);
+    background-color: transparent;
+    border: none;
+    color: var(--white);
     font-weight: normal;
-    font-size: 20px;
     cursor: pointer;
-    background-color: var(--white);
-    transition: 900ms;
+    margin: 0 12vw;
+    transition: 300ms;
+}
+.button span {
+    font-size: 80px;
 }
 button:active {
     opacity: 0.5;
 }
-.cycleInfo, 
 .set, .cycle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 24px;
 }
-.cycleInfo {
-    width: 100%;
-    gap: 10px;
-} 
-.set, .cycle {
-    background-color: var(--white);
-    border: 4px solid var(--text-black);
-    margin-top: 50px;
-    font-size: 20px;
-    width: 20%;
-    padding: 6px 24px;
+.set > span, .cycle > span {
+    font-size: 44px;
 }
 </style>
