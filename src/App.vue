@@ -1,6 +1,8 @@
 <template>
-    <img src="./assets/tomato.png" alt="Vue logo" />
-    <Timer />
+    <div id="body" :class="{ cycle: cycleType.isCycle, break: cycleType.isBreak, longBreak: cycleType.isLongBreak }">
+        <img src="./assets/tomato.png" alt="A tomato" />
+        <Timer v-model:cycleType="cycleType" />
+    </div>
 </template>
 
 <script>
@@ -12,14 +14,20 @@ export default {
         Timer,
     },
     data() {
-        return {};
-    },
+        return {
+            cycleType: {
+                isCycle: true,
+                isBreak: false,
+                isLongBreak: false,
+            }
+        };
+    }
 };
 </script>
 
 <style>
 :root {
-    --text-white: #f0f0f0;
+    --white: #f0f0f0;
     --text-black: #2c3e50;
     --red: #fa7a52;
     --dark-red: #fa4d31;
@@ -34,17 +42,23 @@ export default {
     padding: 0;
     position: relative;
 }
-#app {
+#body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    height: 100vh;
-    background-color: var(--red);
-    /* background-color: var(--blue); */
-    /* background-color: var(--green); */
+    min-height: 100vh;
     padding: 30px 0;
+}
+#body.cycle {
+    background-color: var(--red);
+}
+#body.break {
+    background-color: var(--blue);
+}
+#body.longBreak {
+    background-color: var(--green);
 }
 img {
     max-width: 60px;

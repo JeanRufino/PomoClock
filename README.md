@@ -3,12 +3,14 @@
 
 ## TODOs
 
-### Get the timer working [ ]
-### Get the stop/go button working [ ]
-### Get history section working 1/2 [ ]
-### Get about working [ ]
-### Style [ ]
-### Get history section working 2/2 (persist) [ ]
+### Get the timer working [X]
+### Get the stop/go button working [X]
+### Get series/cycles section working 1/2 [X]
+### Find out why no sound is beeing played [X]
+### Style []
+### Get options working []
+### About section []
+### Get history section working 2/2 (persist) []
 
 
 <!-- ## Project setup
