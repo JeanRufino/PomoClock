@@ -59,15 +59,12 @@ export default {
     },
     watch: {
         cycleDuration(newVal) { 
-            console.log(`Root: ${this.cycleDuration}`)
             this.cycleDuration = newVal;
         },
         breakDuration(newVal) { 
-            console.log(`Root: ${this.breakDuration}`)
             this.breakDuration = newVal;
         },
         longBreakDuration(newVal) { 
-            console.log(`Root: ${this.longBreakDuration}`)
             this.longBreakDuration = newVal;
         },
     }
@@ -77,8 +74,9 @@ export default {
 <style>
 :root {
     --white: #f0f0f0;
-    --text-black: #1d2833;
+    --text-black: #29323a;
     --red: #f06666;
+    --dark-red: #dd5858;
     --blue: #6fa8e0;
     --dark-blue: #5d7a96;
     --green: #3cb842;

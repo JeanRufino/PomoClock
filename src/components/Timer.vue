@@ -36,9 +36,6 @@ export default {
     },
     data() {
         return {
-            cycleDurationCopy: this.cycleDuration,
-            breakDurationCopy: this.breakDuration,
-            longBreakDurationCopy: this.longBreakDuration,
             isCycleCopy: this.isCycle,
             isBreakCopy: this.isBreak,
             isLongBreakCopy: this.isLongBreak,
@@ -53,19 +50,15 @@ export default {
     },
     watch: {
         cycleDuration(newVal) {
-            console.log(`timer: ${newVal}`)
-            this.cycleDurationCopy = newVal;
+            if(this.isCycle) this.timeInSeconds = (newVal * 60) - this.elapsedTime; 
         },
         breakDuration(newVal) {
-            console.log(`timer: ${newVal}`)
-            this.breakDurationCopy = newVal;
+            if(this.isBreak) this.timeInSeconds = (newVal * 60) - this.elapsedTime;
         },
         longBreakDuration(newVal) {
-            console.log(`timer: ${newVal}`)
-            this.longBreakDurationCopy = newVal;
+            if(this.isLongBreak) this.timeInSeconds = (newVal * 60) - this.elapsedTime;
         },
         timeInSeconds(newVal) {
-            console.log(newVal)
             this.timeInSeconds = newVal;
         }
     },
