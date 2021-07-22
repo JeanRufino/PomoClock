@@ -1,12 +1,23 @@
 <template>
-    <div id="body" :class="{ cycle: cycleType.isCycle, break: cycleType.isBreak, longBreak: cycleType.isLongBreak }">
+    <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
         <header>
             <Menu />
             <img src="./assets/pomodoro.png" alt="A tomato" />
-            <TimerOptions />
+            <TimerOptions 
+                v-model:cycleDuration="cycleDuration"
+                v-model:breakDuration="breakDuration"
+                v-model:longBreakDuration="longBreakDuration"
+            />
         </header>
 
-        <Timer v-model:cycleType="cycleType" />
+        <Timer 
+            v-model:cycleDuration="cycleDuration"
+            v-model:breakDuration="breakDuration"
+            v-model:longBreakDuration="longBreakDuration"
+            v-model:isCycle="isCycle"
+            v-model:isBreak="isBreak"
+            v-model:isLongBreak="isLongBreak"
+        />
 
         <footer>
             <div>
@@ -31,18 +42,34 @@ export default {
         Menu,
     },
     data() {
+            let cycleDuration = 0.05;
+            let breakDuration = 0.05;
+            let longBreakDuration = 0.1;
+            let isCycle = true;
+            let isBreak = false;
+            let isLongBreak = false;
         return {
-            cycleType: {
-                isCycle: true,
-                isBreak: false,
-                isLongBreak: false,
-            },
-            // periodDurations: {
-            //     cycleDuration,
-            //     breakDuration,
-            //     longBreakDuration,
-            // }
+            cycleDuration,
+            breakDuration,
+            longBreakDuration,
+            isCycle,
+            isBreak,
+            isLongBreak,
         };
+    },
+    watch: {
+        cycleDuration(newVal) { 
+            console.log(`Root: ${this.cycleDuration}`)
+            this.cycleDuration = newVal;
+        },
+        breakDuration(newVal) { 
+            console.log(`Root: ${this.breakDuration}`)
+            this.breakDuration = newVal;
+        },
+        longBreakDuration(newVal) { 
+            console.log(`Root: ${this.longBreakDuration}`)
+            this.longBreakDuration = newVal;
+        },
     }
 };
 </script>
@@ -51,9 +78,9 @@ export default {
 :root {
     --white: #f0f0f0;
     --text-black: #1d2833;
-    --red: #ff2d2d;
-    --blue: #347fca;
-    --dark-blue: #1e4e7e;
+    --red: #f06666;
+    --blue: #6fa8e0;
+    --dark-blue: #5d7a96;
     --green: #3cb842;
 }
 *,

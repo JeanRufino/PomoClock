@@ -5,17 +5,13 @@
         </span>
     </button>
     <div class="options" :class="{ active: isActive }">
-        <label for="cycleDuration">Duração do ciclo</label>
-        <input id="cycleDuration" type="range">
-        <input id="cycleDuration" type="number">
+        <div v-for="option in options" :key="option.string">
+            <label :for="option.string">{{option.label}}</label>
 
-        <label for="breakDuration">Duração do descanço</label>
-        <input id="breakDuration" type="range">
-        <input id="breakDuration" type="number">
+            <input v-model="option.selector" :id="option.string" type="range" min="0.1" max="60" @input="durationValidation($event, option.string, option.selector)">
 
-        <label for="longBreakDuration">Duração do descanço longo</label>
-        <input id="longBreakDuration" type="range">
-        <input id="longBreakDuration" type="number">
+            <input v-model.number="option.selector" :id="option.string" type="number" min="0.1" max="60" @input="durationValidation($event, option.string, option.selector)">
+        </div>
     </div>
 </template>
 
@@ -23,16 +19,45 @@
 export default {
     name: 'TimerOptions',
     props: {
-
+        cycleDuration: {
+            type: Number,
+            required: true,
+        },     
+        breakDuration: {
+            type: Number,
+            required: true,
+        },     
+        longBreakDuration: {
+            type: Number,
+            required: true,
+        }, 
     },
     data() {
         return {
             isActive: true,
+            cycleDurationCopy: this.cycleDuration,
+            breakDurationCopy: this.breakDuration,
+            longBreakDurationCopy: this.longBreakDuration,
+            options: [
+                { selector: this.cycleDuration, string: 'cycleDuration', label: 'Duração do ciclo' },
+                { selector: this.breakDuration, string: 'breakDuration', label: 'Duração do descanço' },
+                { selector: this.longBreakDuration, string: 'longBreakDuration', label: 'Duração do descanço longo' }
+            ]
         }
     },
     methods: {
         toggleOptions() {
             this.isActive ? this.isActive = false : this.isActive = true;  
+        },
+        durationValidation(event, string, selector) {
+            if(event.target.value > 60) {
+                event.target.value = 60;
+            } else if (event.target.value <= 0.1 || event.target.value == '' || event.target.value == null) {
+                event.target.value = 0.1;
+            }
+            selector = event.target.value;
+            this.$emit(`update:${string}`, selector );
+            console.log(`Local: ${selector}, String: ${string}, Root: ${this.cycleDuration}, ${this.breakDuration}, ${this.longBreakDuration}`)
         }
     }
 }
