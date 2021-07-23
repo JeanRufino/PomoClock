@@ -1,5 +1,5 @@
 <template>
-    <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
+    <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak, 'modal-open': isActive}">
         <header>
             <Menu />
             <img src="./assets/pomodoro.png" alt="A tomato" />
@@ -7,6 +7,7 @@
                 v-model:cycleDuration="cycleDuration"
                 v-model:breakDuration="breakDuration"
                 v-model:longBreakDuration="longBreakDuration"
+                v-model:isActive="isActive"
             />
         </header>
 
@@ -20,11 +21,9 @@
         />
 
         <footer>
-            <div>
-                <a href="https://www.linkedin.com/in/jean-rufino-40b95113b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="https://github.com/JeanRufino?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-            <span>&copy; 2021 - Jean Rufino</span>
+            <span>Gostou? Me siga no <a href="https://github.com/JeanRufino?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>!</span> 
+            <br>
+            <span>Feito com &#9829; por Jean Rufino</span>
         </footer>
     </div>
 </template>
@@ -42,19 +41,14 @@ export default {
         Menu,
     },
     data() {
-            let cycleDuration = 0.05;
-            let breakDuration = 0.05;
-            let longBreakDuration = 0.1;
-            let isCycle = true;
-            let isBreak = false;
-            let isLongBreak = false;
         return {
-            cycleDuration,
-            breakDuration,
-            longBreakDuration,
-            isCycle,
-            isBreak,
-            isLongBreak,
+            isActive: false,
+            cycleDuration: 25,
+            breakDuration: 5,
+            longBreakDuration: 30,
+            isCycle: true,
+            isBreak: false,
+            isLongBreak: false,
         };
     },
     watch: {
@@ -91,16 +85,24 @@ export default {
 }
 #body {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
+    min-height: 100vh;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    flex-direction: column;
-    min-height: 100vh;
     color: var(--white);
     font-weight: 500;
+    width: 100%;
+}
+#body.modal-open {
+    position: fixed;
+    /* max-height: calc(100vh - 200px); */
+    max-height: 50vh;
+    overflow-y: hidden;
 }
 #body.cycle {
     background-color: var(--red);
@@ -113,31 +115,41 @@ export default {
 }
 /* ---- HEADER AND MENUS ---- */
 header {
-    position: initial;
     display: grid;
-    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr calc(32vw + 44px) 1fr;
     width: 100%;
-    background-color: transparent;
-    padding: 30px 0 50px 0;
+    margin: 0 auto;
+    padding: 30px 0 30px 0;
 }
 img {
-    max-height: 60px;
-    max-width: auto;
-    margin: 0 auto;
+    max-height: 44px;
+    max-width: 44px;
+    margin: 0 16vw;
 }
+/* ---- FOOTER---- */
 footer {
     justify-self: flex-end;
-    margin-top: auto;
-    padding: 50px 0 30px 0;
-}
-footer > div {
-    margin-bottom: 16px;
+    margin-bottom: 30px;
 }
 footer a {
-    font-size: 20px;
-    color:var(--white)
+    font-size: 14px;
+    color:var(--white);
+    font-weight: 700;
 }
-footer a:not(:last-of-type) {
-    margin-right: 20px;
+footer span {
+    font-size: 14px;
+}
+footer span:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+/* ---- MEDIA QUERIES ---- */
+@media screen and (min-width: 500px) {
+    footer span,
+    footer a {
+        font-size: 16px;
+        font-size: 16px;
+    }
 }
 </style>

@@ -5,6 +5,14 @@
         </span>
     </button>
     <div class="options" :class="{ active: isActive }">
+        <div class="optionsHeader">
+            <span>Opções</span>
+            <button @click="toggleOptions">
+                <span class="material-icons-outlined">
+                    clear
+                </span>
+            </button>
+        </div>
         <div v-for="(option, index) in options" :key="option.string">
             <label :for="option.string">{{option.label}}</label>
 
@@ -30,11 +38,14 @@ export default {
         longBreakDuration: {
             type: Number,
             required: true,
-        }, 
+        },
+        isActive: {
+            type: Boolean,
+            required: true,
+        },
     },
     data() {
         return {
-            isActive: true,
             cycleDurationCopy: this.cycleDuration,
             breakDurationCopy: this.breakDuration,
             longBreakDurationCopy: this.longBreakDuration,
@@ -58,7 +69,7 @@ export default {
     },
     methods: {
         toggleOptions() {
-            this.isActive ? this.isActive = false : this.isActive = true;  
+            this.isActive ? this.$emit('update:isActive', false) : this.$emit('update:isActive', true)
         },
         durationValidation(event, string, selector, index) {
             if(event.target.value > 60 || event.target.value.length > 2) {
@@ -81,36 +92,63 @@ export default {
 
 <style scoped>
     .options {
-        position: absolute;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
         right: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        padding: 90px 0 0 0; 
         background-color: var(--red);
-        transition: 400ms ease-out;
-        transform: translateX(100%);
+        transition: 300ms ease;
         z-index: 2;
+        box-shadow: -10px 0px 0px 0px var(--dark-red);
+        -webkit-transform: translateX(110%);
+        -o-transform: translateX(110%);
+        transform: translateX(110%);
+        overflow-y: auto;
     }
     .options.active {
+        -webkit-transform: translateX(0);
+        -o-transform: translateX(0);
         transform: translateX(0);
     }
+    .optionsHeader {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr calc(32vw + 44px) 1fr;
+        grid-template-areas: "a b c";
+        margin: 30px 0 20px 0;
+        height: 44px;
+        background: var(--dark-red);
+    }
+    .optionsHeader > button {
+        grid-area: c;
+    }
+    .optionsHeader > span {
+        font-size: 20px;
+        grid-area: b;
+    }
     button { 
-        z-index: 3;
+        display: flex;
+        align-items: center;
         border: none;
         background-color: transparent;
         width: max-content;
         align-items: center;
-        margin-left: auto;
-        margin-right: 30px;
+        margin-right: auto;
         cursor: pointer;
+        transition: 300ms;
+    }
+    button:hover { 
+        opacity: 0.6;
     }
     button span {
         color: var(--white);
-        font-size: 40px;
+        font-size: 26px;
     }
     label, input {
-        font-size: 24px;
+        font-size: 20px;
         display: block;
         margin: 0 auto;
     }
@@ -181,9 +219,6 @@ export default {
         background: var(--white);
         border: 2px solid var(--dark-red);
     }
-    /* input[type=range]:focus::-moz-range-track {
-        background: red;
-    } */
     input[type=range]::-ms-track {
         width: 100%;
         height: 8.4px;
@@ -193,23 +228,6 @@ export default {
         border-width: 16px 0;
         color: transparent;
     }
-    /* input[type=range]::-ms-fill-lower {
-        background: #2a6495;
-        border: 0.2px solid #010101;
-        border-radius: 2.6px;
-    }
-    input[type=range]:focus::-ms-fill-lower {
-        background: #3071a9;
-    }
-    input[type=range]::-ms-fill-upper {
-        background: #3071a9;
-        border: 0.2px solid #010101;
-        border-radius: 2.6px;
-        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    }
-    input[type=range]:focus::-ms-fill-upper {
-        background: #367ebd;
-    } */
     /* RANGE INPUT TRACK STYLING ENDS */
     input[type=number] {
         text-align: center;
@@ -221,7 +239,7 @@ export default {
         padding: 4px;
         border: none;
         margin-bottom: 30px;
-        max-width: 100px;
+        width: 33%;
         -moz-appearance: textfield;
     }
     input[type=number]:focus {
@@ -231,5 +249,14 @@ export default {
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
+    }
+    /* MEDIA QUERIES */
+    @media screen and (min-width: 500px) {
+        button span {
+            font-size: 30px;
+        }
+        label, input, .optionsHeader > span {
+            font-size: 24px;
+        }
     }
 </style>

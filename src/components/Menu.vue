@@ -14,17 +14,21 @@ export default {
 
 <style scoped>
     button {
-        z-index: 3;
+        display: flex;
+        align-items: center;
         border: none;
         background-color: transparent;
         width: max-content;
         align-items: center;
-        margin-left: 30px;
-        margin-right: auto;
+        margin-left: auto;
         cursor: not-allowed; /* --- TEMP --- */
+        transition: 300ms;
+    }
+    button:hover { 
+        opacity: 0.6;
     }
     button span {
         color: var(--white);
-        font-size: 40px;
+        font-size: 30px;
     }
 </style>

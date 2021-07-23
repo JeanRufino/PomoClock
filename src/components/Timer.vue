@@ -144,25 +144,25 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50vw;
-    width: 50vw;
-    max-height: 320px;
-    max-width: 320px;
+    min-height: 50vw;
+    min-width: 50vw;
     margin: 0 auto;
-    border: 6px solid var(--white);
+    border: 4px solid var(--white);
     border-radius: 50%;
 }
 .timer .timer-value {
-    font-size: 50px;
+    font-size: 44px;
 }
 .cycleInfo {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin: 30px auto;
     width: 100%;
 }
 button {
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: none;
     color: var(--white);
@@ -172,15 +172,34 @@ button {
     transition: 300ms;
 }
 .button span {
-    font-size: 80px;
+    font-size: 70px;
 }
 button:active {
     opacity: 0.5;
 }
 .set, .cycle {
-    font-size: 24px;
+    font-size: 20px;
 }
 .set > span, .cycle > span {
-    font-size: 44px;
+    font-size: 40px;
+}
+/* ---- MEDIA-QUERIES ---- */
+@media screen and (min-width: 500px) {
+    .timer {
+        min-height: unset;
+        min-width: unset;
+        min-height: 320px;
+        min-width: 320px;
+        border: 4px solid var(--white);
+    }
+    .timer .timer-value {
+        font-size: 56px;
+    }
+    .set, .cycle {
+        font-size: 28px;
+    }
+    .set > span, .cycle > span {
+        font-size: 48px;
+    }
 }
 </style>
