@@ -1,8 +1,8 @@
 <template>
     <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak, 'modal-open': isActive}">
         <header :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
-            <Menu />
-            <img src="./assets/pomodoro.png" alt="A tomato" />
+            <Menu v-model:aboutActive="aboutActive"/>
+            <img src="./assets/newTomato.png" alt="A tomato" />
             <TimerOptions 
                 v-model:cycleDuration="cycleDuration"
                 v-model:breakDuration="breakDuration"
@@ -50,6 +50,7 @@ export default {
     data() {
         return {
             isActive: false,
+            aboutActive: false,
             cycleDuration: 25,
             breakDuration: 5,
             longBreakDuration: 30,
@@ -121,17 +122,15 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
     min-height: 100vh;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: var(--white);
     font-weight: 500;
     width: 100%;
-    z-index: 3;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 #body.modal-open {
     position: fixed;
@@ -152,9 +151,8 @@ header {
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 1fr calc(32vw + 44px) 1fr;
-    width: 100%;
-    margin: 0 auto 30px;
+    grid-template-columns: 30% 40% 30%;
+    margin-bottom: 30px;
     padding: 30px 0 30px 0;
 }
 header.cycle {
@@ -169,7 +167,7 @@ header.longBreak {
 img {
     max-height: 44px;
     max-width: 44px;
-    margin: 0 16vw;
+    margin: 0 auto;
 }
 /* ---- FOOTER---- */
 footer {

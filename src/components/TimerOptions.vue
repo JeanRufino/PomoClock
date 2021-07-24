@@ -1,19 +1,20 @@
 <template>
-    <button @click="toggleOptions">
-        <span class="material-icons-outlined menuM">
+    <!-- <button @click="toggleOptions"> -->
+        <span class="material-icons-outlined menuM" @click="toggleOptions">
             settings
         </span>
-        <span class="menu">Opções</span>
-    </button>
+        <span class="menu" @click="toggleOptions">Opções</span>
+    <!-- </button> -->
     <div class="options" :class="{ active: isActive }">
         <div class="optionsHeader">
-            <span>Opções</span>
-            <button @click="toggleOptions">
-                <span class="material-icons-outlined menuM">
+            <img src="../assets/cutTomato.png" alt="Um tomate cortado ao meio">
+            <span class="menuTitle">Opções</span>
+            <!-- <button @click="toggleOptions"> -->
+                <span class="material-icons-outlined menuM"  @click="toggleOptions">
                     clear
                 </span>
-                <span class="menu">Fechar</span>
-            </button>
+                <span class="menu" @click="toggleOptions">Fechar</span>
+            <!-- </button> -->
         </div>
         <div class="timeOptionsWrapper">
             <div v-for="(option, index) in options" :key="option.string" class="timeOptions">
@@ -113,15 +114,13 @@ export default {
         },
         reset() {
             this.$emit('update:isReset', true);
-        },
-        toggleConfirmation() {
-            return;
         }
     }
 }
 </script>
 
 <style scoped>
+    /* ---- HEADER STARTS ----  */
     .options {
         position: fixed;
         display: flex;
@@ -130,60 +129,59 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: var(--red);
-        transition: 300ms ease;
-        z-index: 2;
-        box-shadow: -10px 0px 0px 0px var(--dark-red);
-        -webkit-transform: translateX(110%);
-        -o-transform: translateX(110%);
-        transform: translateX(110%);
+        background: var(--red);
         overflow-y: auto;
+        box-shadow: -10px 0px 0px 0px var(--dark-red);
+        -webkit-transition: 300ms ease-out;
+        -moz-transition: 300ms ease-out;
+        -o-transition: 300ms ease-out;
+        transition: 300ms ease-out;
+        transform: translateX(110%);
+        -o-transform: translateX(110%);
+        -webkit-transform: translateX(110%);
+        z-index: 2;
     }
     .options.active {
-        -webkit-transform: translateX(0);
-        -o-transform: translateX(0);
         transform: translateX(0);
+        -o-transform: translateX(0);
+        -webkit-transform: translateX(0);
     }
     .optionsHeader {
         display: grid;
         align-items: center;
-        grid-template-columns: 1fr calc(32vw + 44px) 1fr;
-        grid-template-rows: 44px;
-        grid-template-areas: "a b c";
+        justify-content: center;
+        grid-template-columns: 30% 40% 30%;
         padding: 30px 0 30px 0;
         background: var(--dark-red);
     }
-    .optionsHeader > button {
-        grid-area: c;
+    .optionsHeader img {
+        margin-right: 0;
     }
-    .optionsHeader > span {
+    span.menu, span.menuTitle {
         font-size: 20px;
-        grid-area: b;
+        font-weight: normal;
     }
-    button { 
-        display: flex;
-        align-items: center;
-        border: none;
-        background-color: transparent;
-        width: max-content;
-        align-items: center;
-        margin-right: auto;
-        cursor: pointer;
-        transition: 300ms;
-    }
-    button:hover { 
-        opacity: 0.6;
-    }
-    button > .menu {
+    span.menu {
         display: none;
+        -webkit-transition: 300ms ease-out;
+        -moz-transition: 300ms ease-out;
+        -o-transition: 300ms ease-out;
+        transition: 300ms ease-out;
     }
-    button > .menuM {
+    span.menu:hover { 
+        letter-spacing: 5px;
+    }
+    span.menuM {
+        color: var(--white);
+        font-size: 24px;
         display: block;
     }
-    button span, .buttonWrapper button {
-        color: var(--white);
-        font-size: 26px;
+    span.menu, span.menuM { 
+        margin-right: auto;
+        cursor: pointer;
     }
+    /* ---- HEADER ENDS ----  */
+    /* ---- OPTIONS START ----  */
     label, input {
         width: max-content;
         font-size: 20px;
@@ -199,9 +197,13 @@ export default {
     }
     .buttonWrapper button {
         background: var(--dark-red);
+        color: var(--white);
+        font-size: 20px;
         padding: 10px 14px;
         margin: 0 auto;
         border-radius: 4px;
+        border: none;
+        cursor: pointer;
     }
     input[type=range] {
         -webkit-appearance: none;
@@ -210,7 +212,8 @@ export default {
         margin: 30px auto;
         background-color: transparent;
     }
-    /* RANGE INPUT RESETS */
+    /* ---- OPTIONS END ----  */
+    /* ---- RANGE INPUT RESETS BEGIN ---- */
     input[type=range]::-webkit-slider-thumb {
         -webkit-appearance: none;
     }
@@ -224,7 +227,8 @@ export default {
         border-color: transparent;
         color: transparent;
     }
-    /* RANGE INPUT THUMB STYLING BEGINS */
+    /* ---- RANGE INPUT RESETS ENDS ---- */
+    /* ---- RANGE INPUT THUMB STYLING BEGINS ---- */
     input[type=range]::-webkit-slider-thumb {
         -webkit-appearance: none;
         margin-top: -10px; 
@@ -251,8 +255,8 @@ export default {
         background: var(--white);
         cursor: pointer;
     }
-    /* RANGE INPUT THUMB STYLING ENDS */
-    /* RANGE INPUT TRACK STYLING BEGINS */
+    /* ----RANGE INPUT THUMB STYLING ENDS ----*/
+    /* ---- RANGE INPUT TRACK STYLING BEGINS ---- */
     input[type=range]::-webkit-slider-runnable-track {
         width: 100%;
         height: 8.4px;
@@ -279,7 +283,8 @@ export default {
         border-width: 16px 0;
         color: transparent;
     }
-    /* RANGE INPUT TRACK STYLING ENDS */
+    /* ---- RANGE INPUT TRACK STYLING ENDS ---- */
+    /* ---- NUMBER INPUT STYLING BEGINS ---- */
     input[type=number] {
         text-align: center;
         font-family: 'Poppins', sans-serif;
@@ -292,7 +297,7 @@ export default {
         margin: 10px auto 30px;
         -moz-appearance: textfield;
         width: intrinsic;           /* Safari/WebKit uses a non-standard name */
-        max-width: 25%;             /* Firefox workaround */
+        max-width: 100px;           /* Firefox workaround, since it accepts no auto-width styles */
         width: -webkit-min-content; /* Chrome */
     }
     input[type=number]:focus {
@@ -303,7 +308,8 @@ export default {
         -webkit-appearance: none;
         margin: 0;
     }
-    /* ---- CONFIRMATION MODAL ---- */
+    /* ---- NUMBER INPUT STYLING ENDS ---- */
+    /* ---- CONFIRMATION MODAL BEGINS ---- */
     .modalWrapper {
         position: fixed;
         padding: 40px;
@@ -314,7 +320,10 @@ export default {
         background: var(--modal-black);
         display: none;
         opacity: 0;
-        transition: 300ms;
+        -webkit-transition: 300ms ease-out;
+        -moz-transition: 300ms ease-out;
+        -o-transition: 300ms ease-out;
+        transition: 300ms ease-out;
         z-index: 3;
     }
     .modalWrapper.active {
@@ -342,25 +351,28 @@ export default {
         display: flex;
         margin: 20px auto 4px;
     }
-    /* ---- MEDIA QUERIES ---- */
+    /* ---- CONFIRMATION MODAL ENDS ---- */
+    /* ---- MEDIA QUERIES BEGIN ---- */
     @media screen and (min-width: 500px) {
-        button span {
-            font-size: 30px;
-        }
-        button > .menu {
-            display: block;
+        span.menu, span.menuTitle {
             font-size: 24px;
+            display: block;
         }
-        button > .menuM {
+        span.menuM {
+            font-size: 24px;
             display: none;
         }
         .cycleOptionsWrapper {
             display: flex;
+            justify-content: center;
         }
         .cycleOptions {
             width: 50%;
         }
         label, input, .optionsHeader > span {
+            font-size: 24px;
+        }
+        .buttonWrapper .resetButton {
             font-size: 24px;
         }
         .modal {
@@ -379,6 +391,9 @@ export default {
         }
         input[type=range] {
             width: 50%;
+        }
+        .cycleOptions {
+            width: 33.3333%;
         }
     }
 </style>
