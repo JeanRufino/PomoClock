@@ -6,17 +6,15 @@
     </div>
     <div class="cycleInfo">
         <div class="set">
-            Série <br> <span>{{set}}</span>/12
+            Série <br> <span>{{set}}</span>/{{maxSets}}
         </div>
-        <div class="button">
-            <button @click="click">
-                <span class="material-icons-outlined">
-                    {{buttonText}}
-                </span>
-            </button>
-        </div>
+        <button @click="click">
+            <span class="material-icons-outlined">
+                {{buttonText}}
+            </span>
+        </button>
         <div class="cycle">
-            Ciclo <br> <span>{{cycle}}</span>/4
+            Ciclo <br> <span>{{cycle}}</span>/{{maxCycles}}
         </div>
     </div>
 </template>
@@ -33,22 +31,40 @@ export default {
         isCycle: { type: Boolean, required: true, },
         isBreak: { type: Boolean, required: true, },
         isLongBreak: { type: Boolean, required: true, },
+        maxSets: { type: Number, required: true, },
+        maxCycles: { type: Number, required: true, },
+        cycle: { type: Number, required: true, },
+        set: { type: Number, required: true, },
     },
     data() {
         return {
-            isCycleCopy: this.isCycle,
-            isBreakCopy: this.isBreak,
-            isLongBreakCopy: this.isLongBreak,
-            timeInSeconds: this.cycleDuration * 60,
+            timeInSeconds: this.cycleDuration * 60,   
             elapsedTime: 0,
-            cycle: 1,
-            set: 1,
+            
             interval: null,
             buttonText: 'play_circle_filled',
             audio: new Audio(bells),
         }
     },
     watch: {
+        isCycle(newVal) {
+            if(newVal) {
+                this.timeInSeconds = this.cycleDuration * 60
+                this.elapsedTime = 0;    
+            }
+        },
+        isBreak(newVal) {
+            if(newVal) {
+                this.timeInSeconds = this.breakDuration * 60
+                this.elapsedTime = 0;    
+            }
+        },
+        isLongBreak(newVal) {
+            if(newVal) {
+                this.timeInSeconds = this.longBreakDuration * 60
+                this.elapsedTime = 0;    
+            }
+        },
         cycleDuration(newVal) {
             if(this.isCycle) this.timeInSeconds = (newVal * 60) - this.elapsedTime; 
         },
@@ -84,34 +100,21 @@ export default {
         },
         end() {
             this.playBells();
-            if(this.isCycleCopy) {
-                this.isCycleCopy = false;
+            if(this.isCycle) {
+                this.$emit('update:isCycle', false);
                 if(this.cycle < 4) {
-                    this.cycle += 1;
-                    this.isBreakCopy = true;
-                    this.$emit('update:isCycle', this.isCycleCopy );
-                    this.$emit('update:isBreak', this.isBreakCopy );
-                    this.timeInSeconds = this.breakDuration * 60;
-                    this.elapsedTime = 0;
+                    this.$emit('update:cycle', this.cycle + 1);
+                    this.$emit('update:isBreak', true);
                 } else if(this.cycle == 4) {
-                    this.cycle = 1;
-                    this.set += 1;
-                    this.isLongBreakCopy = true;
-                    this.$emit('update:isCycle', this.isCycleCopy );
-                    this.$emit('update:isLongBreak', this.isLongBreakCopy );
-                    this.timeInSeconds = this.longBreakDuration * 60;
-                    this.elapsedTime = 0;
+                    this.$emit('update:cycle', 1)
+                    this.$emit('update:set', this.set + 1);
+                    this.$emit('update:isLongBreak', true);
                 }
                 return this.newInterval();
             } else {
-                this.isCycleCopy = true;
-                this.isBreakCopy = false;
-                this.isLongBreakCopy = false;
-                this.$emit('update:isCycle', this.isCycleCopy );
-                this.$emit('update:isBreak', this.isBreakCopy );
-                this.$emit('update:isLongBreak', this.isLongBreakCopy );
-                this.timeInSeconds = this.cycleDuration * 60;
-                this.elapsedTime = 0;
+                this.$emit('update:isCycle', true);
+                this.$emit('update:isBreak', false);
+                this.$emit('update:isLongBreak', false);
                 return this.newInterval(); 
             }
         },
@@ -168,16 +171,18 @@ button {
     color: var(--white);
     font-weight: normal;
     cursor: pointer;
-    margin: 0 12vw;
     transition: 300ms;
-}
-.button span {
-    font-size: 70px;
+    width: 34%;
 }
 button:active {
     opacity: 0.5;
 }
+button > span {
+    font-size: 70px;
+    margin: 0 auto;
+}
 .set, .cycle {
+    width: 33%;
     font-size: 20px;
 }
 .set > span, .cycle > span {
@@ -200,6 +205,11 @@ button:active {
     }
     .set > span, .cycle > span {
         font-size: 48px;
+    }
+}
+@media screen and (min-width: 780px) {
+    .cycleInfo {
+        width: 60%;
     }
 }
 </style>

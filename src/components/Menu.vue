@@ -3,6 +3,7 @@
         <span class="material-icons-outlined">
             menu
         </span>
+        <span class="about">Sobre</span>
     </button>
 </template>
 
@@ -27,8 +28,24 @@ export default {
     button:hover { 
         opacity: 0.6;
     }
+    button > .about {
+        display: none;
+    }
+    button > .material-icons-outlined {
+        display: initial;
+    }
     button span {
         color: var(--white);
         font-size: 30px;
+    }
+    /* ---- MEDIA-QUERIES ---- */
+    @media screen and (min-width: 500px) {
+        button > .about {
+            display: block;
+            font-size: 24px;
+        }
+        button > .material-icons-outlined {
+            display: none;
+        }
     }
 </style>

@@ -7,8 +7,10 @@
 ### Get the stop/go button working [X]
 ### Get series/cycles section working 1/2 [X]
 ### Find out why no sound is beeing played [X]
-### Style []
-### Get options working []
+### Style 1/2 [X]
+### Get options working 1/2 []
+### Get options working 2/2 []
+### Style 2/2 []
 ### About/Menu section working []
 ### Get history section working 2/2 (persist) []
 

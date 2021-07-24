@@ -1,6 +1,6 @@
 <template>
     <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak, 'modal-open': isActive}">
-        <header>
+        <header :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
             <Menu />
             <img src="./assets/pomodoro.png" alt="A tomato" />
             <TimerOptions 
@@ -8,6 +8,9 @@
                 v-model:breakDuration="breakDuration"
                 v-model:longBreakDuration="longBreakDuration"
                 v-model:isActive="isActive"
+                v-model:maxCycles="maxCycles"
+                v-model:maxSets="maxSets"
+                v-model:isReset="isReset"
             />
         </header>
 
@@ -18,6 +21,10 @@
             v-model:isCycle="isCycle"
             v-model:isBreak="isBreak"
             v-model:isLongBreak="isLongBreak"
+            v-model:maxCycles="maxCycles"
+            v-model:maxSets="maxSets"
+            v-model:cycle="cycle"
+            v-model:set="set"
         />
 
         <footer>
@@ -49,31 +56,58 @@ export default {
             isCycle: true,
             isBreak: false,
             isLongBreak: false,
+            maxSets: 3,
+            maxCycles: 4,
+            cycle: 1,
+            set: 1,
+            isReset: false,
         };
     },
     watch: {
-        cycleDuration(newVal) { 
-            this.cycleDuration = newVal;
-        },
-        breakDuration(newVal) { 
-            this.breakDuration = newVal;
-        },
-        longBreakDuration(newVal) { 
-            this.longBreakDuration = newVal;
-        },
+        cycleDuration(newVal) { this.cycleDuration = newVal;},
+        breakDuration(newVal) { this.breakDuration = newVal; },
+        longBreakDuration(newVal) { this.longBreakDuration = newVal; },
+        maxSets(newVal) { this.maxSets = newVal; },
+        maxCycles(newVal) { this.maxCycles = newVal; },
+        isCycle(newVal) { this.isCycle = newVal; },
+        isBreak(newVal) { this.isBreak = newVal; },
+        isLongBreak(newVal) { this.isLongBreak = newVal; },
+        cycle(newVal) { this.cycle = newVal; },
+        set(newVal) { this.cycle = newVal; },
+        isReset(newVal) { 
+            if(newVal == true) {
+                this.reset(); 
+                this.isReset = false
+            }
+        }
+    },
+    methods: {
+        reset() {
+            this.isCycle = true;
+            this.isBreak = false;
+            this.isLongBreak = false;
+            this.maxSets = 3;
+            this.maxCycles = 4;
+            this.cycleDuration = 25;
+            this.breakDuration = 5;
+            this.longBreakDuration = 30;
+            this.cycle = 1;
+            this.set = 1;
+        }
     }
 };
 </script>
 
 <style>
 :root {
-    --white: #f0f0f0;
+    --white: #eeecec;
     --text-black: #29323a;
     --red: #f06666;
     --dark-red: #dd5858;
     --blue: #6fa8e0;
     --dark-blue: #5d7a96;
-    --green: #3cb842;
+    --darkest-blue: #4f677e;
+    --modal-black: #28313980;
 }
 *,
 *::after,
@@ -97,11 +131,11 @@ export default {
     color: var(--white);
     font-weight: 500;
     width: 100%;
+    z-index: 3;
 }
 #body.modal-open {
     position: fixed;
-    /* max-height: calc(100vh - 200px); */
-    max-height: 50vh;
+    /* width: calc(100% - 17px); */ /* Offset caused by scroll-bar */
     overflow-y: hidden;
 }
 #body.cycle {
@@ -120,8 +154,17 @@ header {
     justify-content: center;
     grid-template-columns: 1fr calc(32vw + 44px) 1fr;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     padding: 30px 0 30px 0;
+}
+header.cycle {
+    background-color: var(--dark-red);
+}
+header.break {
+    background-color: var(--dark-blue);
+}
+header.longBreak {
+    background-color: var(--darkest-blue);
 }
 img {
     max-height: 44px;
