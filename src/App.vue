@@ -1,5 +1,5 @@
 <template>
-    <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak, 'modal-open': isActive}">
+    <div id="body" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak, 'modal-open': isActive || aboutActive}">
         <header :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
             <Menu v-model:aboutActive="aboutActive"/>
             <img src="./assets/newTomato.png" alt="A tomato" />
@@ -102,6 +102,7 @@ export default {
 <style>
 :root {
     --white: #eeecec;
+    --grey: #7c7c7c;
     --text-black: #29323a;
     --red: #f06666;
     --dark-red: #dd5858;
@@ -151,7 +152,7 @@ header {
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 20% 60% 20%;
     margin-bottom: 30px;
     padding: 30px 0 30px 0;
 }
@@ -172,7 +173,7 @@ img {
 /* ---- FOOTER---- */
 footer {
     justify-self: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 footer a {
     font-size: 14px;
@@ -187,6 +188,9 @@ footer span:not(:last-of-type) {
 }
 /* ---- MEDIA QUERIES ---- */
 @media screen and (min-width: 500px) {
+    .aboutHeader {
+        grid-template-columns: 30% 40% 30%;
+    }
     footer span,
     footer a {
         font-size: 16px;

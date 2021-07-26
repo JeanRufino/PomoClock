@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style scoped>
-    /* ---- HEADER STARTS ----  */
+    /* ---- OPTIONS STYLING STARTS ----  */
     .options {
         position: fixed;
         display: flex;
@@ -129,7 +129,7 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        background: var(--red);
+        background: var(--blue);
         overflow-y: auto;
         box-shadow: -10px 0px 0px 0px var(--dark-red);
         -webkit-transition: 300ms ease-out;
@@ -150,9 +150,9 @@ export default {
         display: grid;
         align-items: center;
         justify-content: center;
-        grid-template-columns: 30% 40% 30%;
+        grid-template-columns: 20% 60% 20%;
         padding: 30px 0 30px 0;
-        background: var(--dark-red);
+        background: var(--dark-blue);
     }
     .optionsHeader img {
         margin-right: 0;
@@ -189,14 +189,14 @@ export default {
         margin: 30px auto 0;
     }
     .timeOptions, .cycleOptions {
-        border-bottom: 2px solid var(--dark-red);
+        border-bottom: 2px solid var(--dark-blue);
     }
     .buttonWrapper {
         width: 100%;
-        margin: 30px auto;
+        margin: 30px auto 60px;
     }
     .buttonWrapper button {
-        background: var(--dark-red);
+        background: var(--dark-blue);
         color: var(--white);
         font-size: 20px;
         padding: 10px 14px;
@@ -232,7 +232,7 @@ export default {
     input[type=range]::-webkit-slider-thumb {
         -webkit-appearance: none;
         margin-top: -10px; 
-        border: 2px solid var(--dark-red);
+        border: 2px solid var(--dark-blue);
         height: 24px;
         width: 24px;
         border-radius: 50%;
@@ -240,7 +240,7 @@ export default {
         cursor: pointer;
     }
     input[type=range]::-moz-range-thumb {
-        border: 2px solid var(--dark-red);
+        border: 2px solid var(--dark-blue);
         height: 24px;
         width: 24px;
         border-radius: 50%;
@@ -248,7 +248,7 @@ export default {
         cursor: pointer;
     }
     input[type=range]::-ms-thumb{
-        border: 2px solid var(--dark-red);
+        border: 2px solid var(--dark-blue);
         height: 24px;
         width: 24px;
         border-radius: 50%;
@@ -262,7 +262,7 @@ export default {
         height: 8.4px;
         cursor: pointer;
         background: var(--white);
-        border: 2px solid var(--dark-red);
+        border: 2px solid var(--dark-blue);
     }
     input[type=range]:focus::-webkit-slider-runnable-track {
         background: var(--white);
@@ -272,7 +272,7 @@ export default {
         height: 8.4px;
         cursor: pointer;
         background: var(--white);
-        border: 2px solid var(--dark-red);
+        border: 2px solid var(--dark-blue);
     }
     input[type=range]::-ms-track {
         width: 100%;
@@ -290,7 +290,7 @@ export default {
         font-family: 'Poppins', sans-serif;
         color: var(--white);
         font-weight: 500;
-        background-color: var(--dark-red);
+        background-color: var(--dark-blue);
         border-radius: 4px;
         padding: 4px;
         border: none;
@@ -354,6 +354,9 @@ export default {
     /* ---- CONFIRMATION MODAL ENDS ---- */
     /* ---- MEDIA QUERIES BEGIN ---- */
     @media screen and (min-width: 500px) {
+        .optionsHeader {
+            grid-template-columns: 30% 40% 30%;
+        }
         span.menu, span.menuTitle {
             font-size: 24px;
             display: block;
