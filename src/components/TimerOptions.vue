@@ -65,7 +65,7 @@ export default {
             breakDurationCopy: this.breakDuration,
             longBreakDurationCopy: this.longBreakDuration,
             options: [
-                { selector: parseFloat(this.cycleDuration), string: 'cycleDuration', label: 'Duração do ciclo' },
+                { selector: parseFloat(this.cycleDuration), string: 'cycleDuration', label: 'Duração do pomodoro' },
                 { selector: parseFloat(this.breakDuration), string: 'breakDuration', label: 'Duração da pausa' },
                 { selector: parseFloat(this.longBreakDuration), string: 'longBreakDuration', label: 'Duração da pausa longa' }
             ],

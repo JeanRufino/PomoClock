@@ -1,6 +1,6 @@
 <template>
     <span class="material-icons-outlined menuM" @click="toggleWindow">
-        menu_book
+        info
     </span>
     <span class="menu" @click="toggleWindow">Sobre</span>
     <div class="about" :class="{active: aboutActive}">
@@ -13,33 +13,37 @@
             <img src="../assets/italianTomato.png" alt="Um tomate italiano">
         </div>
         <div class="about-content">
-            <h3>O que é a Técnica Pomodoro?</h3>
-            <p>Criada em meados de 1980 por <span>Francesco Cirillo</span>, essa é uma técnica de gerenciamento de tempo focada em aumentar a produtividade. Curiosamente o nome vem do relógio de cozinha que o próprio <span>Cirillo</span> usava para cronometrar seus períodos de trabalho e descanso, que tinha o formato de um tomate (pomodoro, em italiano). Leia mais <a target="_blank" href="https://pt.wikipedia.org/wiki/T%C3%A9cnica_pomodoro"> <span>aqui</span></a>.</p> 
+            <h3>A Técnica Pomodoro</h3>
+            <p>Criada em meados de 1980 por <span>Francesco Cirillo</span>, a técnica pomodoro é utilizada para o gerenciamento de tempo visando aumentar a produtividade. Curiosamente, o nome vem do relógio de cozinha que o próprio <span>Cirillo</span> usava para cronometrar seus períodos de trabalho e descanso, que tinha o formato de um tomate (pomodoro, em italiano). Leia mais <a target="_blank" href="https://pt.wikipedia.org/wiki/T%C3%A9cnica_pomodoro"> <span>aqui</span></a>.</p> 
         </div>
         <div class="about-content">
             <h3>E como ela funciona?</h3>
             <p>Intercalando momentos de foco no trabalho ou estudo (chamados pomodoros) com momentos de descanso:</p>
             <ul>
-                <li>&nbsp;<span>Inicie</span> o timer</li>
-                <li>Foque na sua tarefa por <span>25 minutos</span></li>
-                <li>Descanse por cinco minutos, <span>o alarme vai te avisar quando</span>!</li>
-                <li>Repita os passos <span>b</span> e <span>c</span> até <span>completar um ciclo e…</span></li>
-                <li>Descanse um pouco mais, <span>você mereceu!</span></li>
+                <li>&nbsp;Inicie o timer</li>
+                <li>Foque na sua tarefa por 25 minutos</li>
+                <li>Descanse por cinco minutos</li>
+                <li>Repita os passos <span>2</span> e <span>3</span> até completar um ciclo e…</li>
+                <li>Descanse um pouco mais, você mereceu!</li>
                 <li>Repita, repita e <span>repita</span></li>
             </ul>
         </div>
         <div class="about-content">
             <h3>O que o PomoJota lhe oferece?</h3>
             <ul>
-                <li>Você pode configurar seus próprios intervalos livremente</li>
-                <li>Design <span>minimalista</span> que não desvia seu foco</li>
-                <li>Abra em uma aba e deixe ele lá, não precisa ficar checando o celular</li>
-                <li>É de graça e <span>sempre será!</span></li>
+                <li>Configure seus próprios intervalos livremente</li>
+                <li>Design minimalista que não desvia seu foco</li>
+                <li>Ele te avisa, não precisa ficar checando</li>
+                <li>É de graça e sempre será!</li>
             </ul>
         </div>
         <div class="about-content">
             <h3>Curtindo o site?</h3>
-            <p>O PomoJota é de graça e sempre será, mas se você gostou, talvez queira <span><a href="https://www.buymeacoffee.com/jeanrufino">me pagar um café ☕</a></span>.<br>Desejo sinceramente que você <span>#ContinueFocando</span>!</p>
+            <p>O PomoJota é de graça e sempre será, mas se você gostou, talvez queira <span><a href="https://www.buymeacoffee.com/jeanrufino">me pagar um café ☕.</a></span><br>Desejo sinceramente que você <span>#ContinueFocando</span>!</p>
+        </div>
+        <div class="about-content">
+            <h3>Dúvidas ou Sujestões</h3>
+            <p>Envie um email para <span><a target="_blank" href="mailto:contatojeanrufino@gmail.com">contatojeanrufino@gmail.com</a></span></p>
         </div>
     </div>
 </template>
