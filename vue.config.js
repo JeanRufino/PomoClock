@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/pomo-clock/'
+    publicPath: '/pomojota/'
 }

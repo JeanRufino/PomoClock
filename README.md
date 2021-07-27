@@ -1,7 +1,7 @@
-# pomo-clock
+# PomoJota
 ## A minimalist pomodoro timer
 
-### [Launch it!](https://github.com/JeanRufino?tab=repositories)
+### [Launch it!](https://jeanrufino.github.io/pomojota/)
 
 ### Made with <a href="url"><img src="https://br.vuejs.org/images/logo.png" align="left" height="48" width="48" ></a>
 
