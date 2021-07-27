@@ -74,7 +74,7 @@ export default {
         isBreak(newVal) { this.isBreak = newVal; },
         isLongBreak(newVal) { this.isLongBreak = newVal; },
         cycle(newVal) { this.cycle = newVal; },
-        set(newVal) { this.cycle = newVal; },
+        set(newVal) { this.set = newVal; },
         isReset(newVal) { 
             if(newVal == true) {
                 this.reset(); 
@@ -173,7 +173,7 @@ img {
 /* ---- FOOTER---- */
 footer {
     justify-self: flex-end;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 footer a {
     font-size: 14px;

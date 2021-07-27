@@ -20,16 +20,16 @@
             <div v-for="(option, index) in options" :key="option.string" class="timeOptions">
                 <label :for="option.string">{{option.label}}</label>
 
-                <input v-model.number="option.selector" :id="option.string" type="number" min="1" max="60" @input="durationValidation($event, option.string, option.selector, index)" @click="select">
+                <input v-model.number="option.selector" :id="option.string" type="number" min="1" max="60" @input="intervalValidation($event, option.string, index)" @click="select" @blur="emptyInput($event, option.string, index)">
 
-                <input v-model.number="option.selector" :id="option.string" type="range" min="1" max="60" @input="durationValidation($event, option.string, option.selector, index)">
+                <input v-model.number="option.selector" :id="option.string" type="range" min="1" max="60" @input="intervalValidation($event, option.string, index)">
             </div>
         </div>
         <div class="cycleOptionsWrapper">
             <div v-for="(option, index) in csOptions" :key="option.string" class="cycleOptions">
                 <label :for="option.string">{{option.label}}</label>
 
-                <input v-model.number="option.selector" :id="option.string" type="number" min="1" max="10" @input="csValidation($event, option.string, option.selector, index, option.max)" @click="select">
+                <input v-model.number="option.selector" :id="option.string" type="number" min="1" max="10" @input="csValidation($event, option.string, index, option.max)" @click="select" @blur="csEmptyInput($event, option.string, index)">
             </div>
         </div>
         <div class="buttonWrapper">
@@ -61,17 +61,14 @@ export default {
     },
     data() {
         return {
-            cycleDurationCopy: this.cycleDuration,
-            breakDurationCopy: this.breakDuration,
-            longBreakDurationCopy: this.longBreakDuration,
             options: [
                 { selector: parseFloat(this.cycleDuration), string: 'cycleDuration', label: 'Duração do pomodoro' },
                 { selector: parseFloat(this.breakDuration), string: 'breakDuration', label: 'Duração da pausa' },
                 { selector: parseFloat(this.longBreakDuration), string: 'longBreakDuration', label: 'Duração da pausa longa' }
             ],
             csOptions: [
-                { selector: parseInt(this.maxSets), string: 'maxSets', label: 'Número de séries' },
-                { selector: parseInt(this.maxCycles), string: 'maxCycles', label: 'Ciclos por série' },
+                { selector: parseInt(this.maxSets), string: 'maxSets', label: 'Ciclos' },
+                { selector: parseInt(this.maxCycles), string: 'maxCycles', label: 'Pomodoros por ciclo' },
             ],
             modal: false,
         }
@@ -87,27 +84,37 @@ export default {
         toggleOptions() {
             this.isActive ? this.$emit('update:isActive', false) : this.$emit('update:isActive', true)
         },
-        durationValidation(event, string, selector, index) {
+        intervalValidation(event, string, index) {
             if(event.target.value > 60 || event.target.value.length > 2) {
-                event.target.value = 60; 
+                event.target.value = 60;
                 this.options[index].selector = 60;
-            } else if(event.target.value < 1 || event.target.value.length < 1) {
-                event.target.value = 1; 
-                this.options[index].selector = 1;
+            } else if(event.target.value == '') {
+                return;
             }
-            selector = parseFloat(event.target.value);
-            this.$emit(`update:${string}`, selector );
+            this.$emit(`update:${string}`, parseFloat(event.target.value));
         },
-        csValidation(event, string, selector, index) {
+        emptyInput(e, string, index) {
+            if(e.target.value < 1 || e.target.value == '') {
+                e.target.value = 1; 
+                this.options[index].selector = 1;
+                this.$emit(`update:${string}`, parseFloat(e.target.value));
+            }
+        },
+        csValidation(event, string, index) {
             if(event.target.value >= 10 || event.target.value.length > 2) {
                 event.target.value = 10;
                 this.csOptions[index].selector = 10;
-            } else if(event.target.value < 1 || event.target.value.length < 1) {
-                event.target.value = 1;
-                this.csOptions[index].selector = 1;
+            } else if(event.target.value == '') {
+                return;
             }
-            selector = parseInt(event.target.value);
-            this.$emit(`update:${string}`, selector);
+            this.$emit(`update:${string}`, parseInt(event.target.value));
+        },
+        csEmptyInput(e, string, index) {
+            if(e.target.value == '') {
+                e.target.value = 1;
+                this.csOptions[index].selector = 1;
+                this.$emit(`update:${string}`, parseInt(e.target.value));
+            }
         },
         select(e) {
             e.target.select();
@@ -189,11 +196,23 @@ export default {
         margin: 30px auto 0;
     }
     .timeOptions, .cycleOptions {
-        border-bottom: 2px solid var(--dark-blue);
+        position: relative;
+    }
+    .timeOptions::after, .cycleOptions::after {
+        position: absolute;
+        content: '';
+        bottom: -25px;
+        left: calc(50% - 80px); 
+        height: 1.5px;
+        width: 160px;
+        background: var(--dark-blue);
+    }
+    .cycleOptions:first-of-type label {
+        margin-top: -10px
     }
     .buttonWrapper {
         width: 100%;
-        margin: 30px auto 60px;
+        margin: 20px auto 60px;
     }
     .buttonWrapper button {
         background: var(--dark-blue);
@@ -204,12 +223,22 @@ export default {
         border-radius: 4px;
         border: none;
         cursor: pointer;
+        -webkit-transition: 300ms;
+        -moz-transition: 300ms;
+        -o-transition: 300ms;
+        transition: 300ms;
+    }
+    .buttonWrapper button:hover {
+        opacity: 0.8;
+    }
+    .buttonWrapper button:active {
+        background: var(--text-black);
     }
     input[type=range] {
         -webkit-appearance: none;
         width: 50vw;
         max-width: 320px;
-        margin: 30px auto;
+        margin: 30px auto 40px;
         background-color: transparent;
     }
     /* ---- OPTIONS END ----  */
@@ -318,20 +347,20 @@ export default {
         width: 100vw;
         height: 100vh;
         background: var(--modal-black);
-        display: none;
         opacity: 0;
         -webkit-transition: 300ms ease-out;
         -moz-transition: 300ms ease-out;
         -o-transition: 300ms ease-out;
         transition: 300ms ease-out;
         z-index: 3;
-    }
-    .modalWrapper.active {
-        display: block;
-        opacity: 1;
+        visibility: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .modalWrapper.active {
+        visibility: visible;
+        opacity: 1;
     }
     .modal {
         background: var(--white);
@@ -365,13 +394,13 @@ export default {
             font-size: 24px;
             display: none;
         }
-        .cycleOptionsWrapper {
+        /* .cycleOptionsWrapper {
             display: flex;
             justify-content: center;
         }
         .cycleOptions {
             width: 50%;
-        }
+        } */
         label, input, .optionsHeader > span {
             font-size: 24px;
         }
@@ -385,7 +414,7 @@ export default {
             padding: 10px;
         }
     }
-    @media screen and (min-width: 1024px) {
+    /* @media screen and (min-width: 1024px) {
         .timeOptionsWrapper {
             display: flex;
         }
@@ -398,5 +427,5 @@ export default {
         .cycleOptions {
             width: 33.3333%;
         }
-    }
+    } */
 </style>

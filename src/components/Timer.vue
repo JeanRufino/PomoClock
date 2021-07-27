@@ -1,12 +1,15 @@
 <template>
     <div class="timer">
-        <div class="timer-value">
+        <div class="timer-label" :class="{ cycle: isCycle, break: isBreak, longBreak: isLongBreak }">
+            <label for="timer-value">{{intervalLabel}}</label>
+        </div>
+        <div id="timer-value" class="timer-value">
             {{timeOutput}}
         </div>
     </div>
     <div class="cycleInfo">
         <div class="set">
-            Série <br> <span>{{set}}</span>/{{maxSets}}
+            Ciclo <br> <span>{{set}}</span>/{{maxSets}}
         </div>
         <button @click="click">
             <span class="material-icons-outlined">
@@ -14,13 +17,14 @@
             </span>
         </button>
         <div class="cycle">
-            Ciclo <br> <span>{{cycle}}</span>/{{maxCycles}}
+            Pomodoro <br> <span>{{cycle}}</span>/{{maxCycles}}
         </div>
     </div>
 </template>
 
 <script>
 import bells from "../assets/bells.wav";
+import goal from "../assets/goal.wav";
 
 export default {
     name: "Timer",
@@ -40,29 +44,33 @@ export default {
         return {
             timeInSeconds: this.cycleDuration * 60,   
             elapsedTime: 0,
-            
             interval: null,
             buttonText: 'play_circle_filled',
-            audio: new Audio(bells),
+            intervalLabel: 'Hora de Focar',
+            bells: new Audio(bells),
+            goal: new Audio(goal),
         }
     },
     watch: {
         isCycle(newVal) {
             if(newVal) {
                 this.timeInSeconds = this.cycleDuration * 60
-                this.elapsedTime = 0;    
+                this.elapsedTime = 0;
+                this.intervalLabel = 'Hora de Focar';    
             }
         },
         isBreak(newVal) {
             if(newVal) {
                 this.timeInSeconds = this.breakDuration * 60
                 this.elapsedTime = 0;    
+                this.intervalLabel = 'Hora de Relaxar';    
             }
         },
         isLongBreak(newVal) {
             if(newVal) {
                 this.timeInSeconds = this.longBreakDuration * 60
                 this.elapsedTime = 0;    
+                this.intervalLabel = 'Hora de relaxar';    
             }
         },
         cycleDuration(newVal) {
@@ -99,14 +107,18 @@ export default {
             }, 1000)
         },
         end() {
-            this.playBells();
+            if(this.cycle == this.maxCycles && this.set == this.maxSets && this.isCycle) { 
+                this.goal.play();
+            } else {
+                this.bells.play();
+            }
             if(this.isCycle) {
                 this.$emit('update:isCycle', false);
-                if(this.cycle < 4) {
+                if(this.cycle < this.maxCycles) {
                     this.$emit('update:cycle', this.cycle + 1);
                     this.$emit('update:isBreak', true);
-                } else if(this.cycle == 4) {
-                    this.$emit('update:cycle', 1)
+                } else if(this.cycle == this.maxCycles) {
+                    this.$emit('update:cycle', 1);
                     this.$emit('update:set', this.set + 1);
                     this.$emit('update:isLongBreak', true);
                 }
@@ -126,7 +138,10 @@ export default {
             }
         },
         playBells() {
-            this.audio.play();
+            this.bells.play();
+        },
+        playGoal() {
+            this.goal.play();
         }
     },
     computed: {
@@ -136,7 +151,7 @@ export default {
             let minutesParsed = ('0' + minutes).slice(-2);
             let secondsParsed= ('0' + seconds).slice(-2);
             return `${minutesParsed}:${secondsParsed}`
-        }
+        },
     }
 }
 </script>
@@ -144,14 +159,35 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .timer {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 50vw;
     min-width: 50vw;
     margin: 0 auto;
-    border: 4px solid var(--white);
+    border: 3px solid var(--white);
     border-radius: 50%;
+}
+.timer .timer-label {
+    position: absolute;
+    padding: 6px 12px;
+    bottom: -16px;
+    right: 3px;
+    left: -3px;
+    font-size: 16px;
+    border-radius: 4px;
+    width: 50vw;
+    white-space: nowrap;
+}
+.timer .timer-label.cycle { 
+    background: var(--dark-red); 
+}
+.timer .timer-label.break { 
+    background: var(--dark-blue); 
+}
+.timer .timer-label.longBreak { 
+    background: var(--darkest-blue); 
 }
 .timer .timer-value {
     font-size: 44px;
@@ -160,7 +196,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px auto;
+    margin: 50px auto;
     width: 100%;
 }
 button {
@@ -196,6 +232,12 @@ button > span {
         min-height: 320px;
         min-width: 320px;
         border: 4px solid var(--white);
+    }
+    .timer .timer-label {
+        left: 56px;
+        right: 64px;
+        width: 200px;
+        font-size: 20px;
     }
     .timer .timer-value {
         font-size: 56px;

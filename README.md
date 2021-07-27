@@ -5,7 +5,7 @@
 
 ### Made with Vue.js
 
-### FEATURES
+#### FEATURES
 * Freely configure your pomodoro and break intervals
 * Minimalist design to help you keep focus
 * PomoJota alerts you, no need to keep checking
