@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: '/PomoJota/',
+    publicPath: '/pomojota/',
      css: { extract: false } 
 }
