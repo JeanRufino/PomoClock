@@ -3,7 +3,7 @@
 
 ### [Launch it!](https://jeanrufino.github.io/pomojota/)
 
-### Made with <a href="url"><img src="https://br.vuejs.org/images/logo.png" align="left" height="48" width="48" ></a>
+### Made with Vue.js
 
 ### FEATURES
 * Freely configure your pomodoro and break intervals
@@ -24,27 +24,3 @@
 ### Style 3/3 [X]
 ### About/Menu section done [X]
 ### Persist data [] -->
-
-
-<!-- ## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/). -->

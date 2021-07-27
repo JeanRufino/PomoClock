@@ -42,7 +42,7 @@
             <p>O PomoJota é de graça e sempre será, mas se você gostou, talvez queira <span><a href="https://www.buymeacoffee.com/jeanrufino">me pagar um café ☕.</a></span><br>Desejo sinceramente que você <span>#ContinueFocando</span>!</p>
         </div>
         <div class="about-content">
-            <h3>Dúvidas ou Sujestões</h3>
+            <h3>Dúvidas ou Sugestões</h3>
             <p>Envie um email para <span><a target="_blank" href="mailto:contatojeanrufino@gmail.com">contatojeanrufino@gmail.com</a></span></p>
         </div>
     </div>
