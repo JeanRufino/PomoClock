@@ -65,20 +65,10 @@ export default {
         };
     },
     watch: {
-        cycleDuration(newVal) { this.cycleDuration = newVal;},
-        breakDuration(newVal) { this.breakDuration = newVal; },
-        longBreakDuration(newVal) { this.longBreakDuration = newVal; },
-        maxSets(newVal) { this.maxSets = newVal; },
-        maxCycles(newVal) { this.maxCycles = newVal; },
-        isCycle(newVal) { this.isCycle = newVal; },
-        isBreak(newVal) { this.isBreak = newVal; },
-        isLongBreak(newVal) { this.isLongBreak = newVal; },
-        cycle(newVal) { this.cycle = newVal; },
-        set(newVal) { this.set = newVal; },
         isReset(newVal) { 
             if(newVal == true) {
                 this.reset(); 
-                this.isReset = false
+                this.isReset = false;
             }
         }
     },
@@ -135,7 +125,6 @@ export default {
 }
 #body.modal-open {
     position: fixed;
-    /* width: calc(100% - 17px); */ /* Offset caused by scroll-bar */
     overflow-y: hidden;
 }
 #body.cycle {

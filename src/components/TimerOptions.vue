@@ -1,20 +1,16 @@
 <template>
-    <!-- <button @click="toggleOptions"> -->
         <span class="material-icons-outlined menuM" @click="toggleOptions">
             settings
         </span>
         <span class="menu" @click="toggleOptions">Opções</span>
-    <!-- </button> -->
     <div class="options" :class="{ active: isActive }">
         <div class="optionsHeader">
             <img src="../assets/cutTomato.png" alt="Um tomate cortado ao meio">
             <span class="menuTitle">Opções</span>
-            <!-- <button @click="toggleOptions"> -->
-                <span class="material-icons-outlined menuM"  @click="toggleOptions">
-                    clear
-                </span>
-                <span class="menu" @click="toggleOptions">Fechar</span>
-            <!-- </button> -->
+            <span class="material-icons-outlined menuM"  @click="toggleOptions">
+                clear
+            </span>
+            <span class="menu" @click="toggleOptions">Fechar</span>
         </div>
         <div class="timeOptionsWrapper">
             <div v-for="(option, index) in options" :key="option.string" class="timeOptions">
@@ -394,13 +390,6 @@ export default {
             font-size: 24px;
             display: none;
         }
-        /* .cycleOptionsWrapper {
-            display: flex;
-            justify-content: center;
-        }
-        .cycleOptions {
-            width: 50%;
-        } */
         label, input, .optionsHeader > span {
             font-size: 24px;
         }
@@ -414,18 +403,4 @@ export default {
             padding: 10px;
         }
     }
-    /* @media screen and (min-width: 1024px) {
-        .timeOptionsWrapper {
-            display: flex;
-        }
-        .timeOptions {
-            width: 33.3333%;
-        }
-        input[type=range] {
-            width: 50%;
-        }
-        .cycleOptions {
-            width: 33.3333%;
-        }
-    } */
 </style>

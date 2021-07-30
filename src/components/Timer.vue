@@ -82,9 +82,6 @@ export default {
         longBreakDuration(newVal) {
             if(this.isLongBreak) this.timeInSeconds = (newVal * 60) - this.elapsedTime;
         },
-        timeInSeconds(newVal) {
-            this.timeInSeconds = newVal;
-        }
     },
     methods: {
         click() {
