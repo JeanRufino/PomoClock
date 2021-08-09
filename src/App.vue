@@ -30,7 +30,7 @@
         <footer>
             <span>Gostou? Me siga no <a href="https://github.com/JeanRufino?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>!</span> 
             <br>
-            <span>Feito com &#9829; por Jean Rufino</span>
+            <span>Feito com 🍅 por Jean Rufino</span>
         </footer>
     </div>
 </template>
